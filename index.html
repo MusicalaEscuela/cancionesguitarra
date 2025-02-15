@@ -156,7 +156,7 @@
 
     <script>
         async function cargarCSV() {
-            const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQu2uqkyXGtq9DcfzO7DWJJguSzaPL3wM71uJQ0qjR1CoDJWevczDfk8Oa9RiG4rtMrOTc9OY_iZdjQ/pub?output=csv";
+            const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBSs3gKEkd_-71O43zaqFsgVNYtVWG5FQaSwz3_9ZqsHtby9TQUsysXmQ1jd5GOUms_13Aikg4Y_WS/pub?output=csv";
             const response = await fetch(url);
             const data = await response.text();
             const filas = data.split("\n").map(row => row.split(","));
