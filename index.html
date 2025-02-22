@@ -24,27 +24,30 @@
             text-align: left;
         }
 
-        /* Encabezado con logo */
+        /* Header responsivo con flexbox */
         header {
-            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
             background-color: #ffffff;
             padding: 10px 20px;
             border-bottom: 2px solid #ddd;
-        }
-
-        header img {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            max-width: 120px;
-            height: auto;
+            flex-wrap: wrap; /* Permite que los elementos bajen si no hay espacio */
         }
 
         header h1 {
             font-size: 36px;
             color: #333333;
             margin: 0;
-            text-align: center;
+            text-align: left;
+            flex: 1; /* Ocupa el espacio disponible */
+        }
+
+        header img {
+            max-width: 120px;
+            height: auto;
+            margin-left: 10px;
         }
 
         /* Estilos para el campo de búsqueda y selector */
@@ -66,6 +69,11 @@
         }
 
         /* Estilos de la tabla */
+        .table-wrapper {
+            overflow-x: auto;
+            width: 100%;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -74,6 +82,7 @@
             border-radius: 10px;
             overflow: hidden;
             table-layout: auto;
+            min-width: 600px; /* Asegura que no se comprima demasiado */
         }
 
         th, td {
@@ -110,6 +119,50 @@
         footer p {
             margin: 5px 0;
         }
+
+        /* Media Queries para dispositivos móviles */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            header h1 {
+                font-size: 24px;
+                text-align: center;
+                flex: 100%;
+            }
+
+            header img {
+                margin: 10px auto;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            #searchInput, #columnSelect {
+                width: 90%;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            /* Tabla scrollable */
+            .table-wrapper {
+                overflow-x: auto;
+                width: 100%;
+            }
+
+            table {
+                width: 100%;
+                min-width: 600px;
+                border-collapse: collapse;
+            }
+        }
     </style>
 </head>
 <body>
@@ -140,13 +193,15 @@
             </div>
         </div>
 
-        <!-- Tabla -->
-        <table id="csvTable">
-            <thead>
-                <tr id="headerRow"></tr>
-            </thead>
-            <tbody id="tableBody"></tbody>
-        </table>
+        <!-- Tabla dentro de un wrapper para scroll -->
+        <div class="table-wrapper">
+            <table id="csvTable">
+                <thead>
+                    <tr id="headerRow"></tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
     </div>
 
     <!-- Pie de página -->
@@ -154,6 +209,7 @@
         <p>© 2025 Musicala. Todos los derechos reservados.</p>
     </footer>
 
+    <!-- Script para cargar CSV -->
     <script>
         async function cargarCSV() {
             const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBSs3gKEkd_-71O43zaqFsgVNYtVWG5FQaSwz3_9ZqsHtby9TQUsysXmQ1jd5GOUms_13Aikg4Y_WS/pub?output=csv";
@@ -204,7 +260,7 @@
                 }
             }
 
-            // Inicializar tabla con columna G por defecto
+            // Inicializar tabla con columna F por defecto
             cargarFilas(columnaInicial);
 
             // Evento para cambiar columna
@@ -229,5 +285,6 @@
 
         cargarCSV();
     </script>
+
 </body>
 </html>
